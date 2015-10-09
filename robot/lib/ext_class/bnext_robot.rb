@@ -8,6 +8,11 @@ class BNextRobot
     include Crawler
     include FeedFilter
 
+    def initialize
+        load_page( "http://www.bnext.com.tw/" )
+        analyze
+    end
+
     def analyze
         cat_tags = @web_data.scan( /<li>.*?<\/li>/ )
         atags = cat_tags.map { |x| x.match( /<a.*?<\/a>/ ).to_s }
