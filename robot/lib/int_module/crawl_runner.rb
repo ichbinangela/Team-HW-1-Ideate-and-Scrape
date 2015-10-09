@@ -1,13 +1,14 @@
 require 'open-uri'
-require 'oga'
 
 module Crawler
 
-    attr_accessor :cats, :web_data
+    attr_accessor :cats, :web_data, :domain
 
     def load_page( url )
         begin
-            @web_data = open( url )
+            @domain = url
+            @domain += "/" unless @domain.end_with? "/"
+            open( url ) { |f| @web_data = f.read }
             1
         rescue
             0
