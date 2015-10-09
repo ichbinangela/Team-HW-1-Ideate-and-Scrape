@@ -8,9 +8,12 @@ class BNextRobot
     include Crawler
     include FeedFilter
 
+    attr_accessor :day_rank_feeds, :week_rank_feeds
+
     def initialize
         load_page( "http://www.bnext.com.tw/" )
         analyze
+        init_rank_feeds
     end
 
     def analyze
@@ -22,6 +25,12 @@ class BNextRobot
 
         @cats = Hash.new( false )
         cats_pair.map { |n, ref| @cats[ n ] = @domain + ref }
+        nil
+    end
+
+    def init_rank_feeds
+        @day_rank_feeds = []
+        @week_rank_feeds = []
         nil
     end
 
@@ -41,4 +50,5 @@ class BNextRobot
         # TODO: parse all feeds @ page: page_no
         nil
     end
+
 end
