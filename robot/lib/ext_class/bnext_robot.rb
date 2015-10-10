@@ -29,20 +29,20 @@ class BNextRobot
     end
 
     def show_day_rank
-        @document = Oga.parse_html(@web_data)
-        @day_rank_href = @document.xpath("//div[@id = 'day_rank']//a[@class = 'content']/@href")
-        @day_rank_title = @document.xpath("//div[@id = 'day_rank']//a[@class = 'content']")
-        (0..@day_rank_href.length-1).each do |i|
-            puts @day_rank_title[i].text + "  =>  " + @domain + @day_rank_href[i].text
+        document = Oga.parse_html(@web_data)
+        day_rank_href = document.xpath("//div[@id = 'day_rank']//a[@class = 'content']/@href")
+        day_rank_title = document.xpath("//div[@id = 'day_rank']//a[@class = 'content']")
+        (0..day_rank_href.length-1).each do |i|
+            puts day_rank_title[i].text + "  =>  " + @domain + day_rank_href[i].text
         end
     end
 
     def show_week_rank
-        @document = Oga.parse_html(@web_data)
-        @week_rank_href = @document.xpath("//div[@id = 'week_rank']//a[@class = 'content']/@href")
-        @week_rank_title = @document.xpath("//div[@id = 'week_rank']//a[@class = 'content']")
-        (0..@week_rank_href.length-1).each do |i|
-            puts @week_rank_title[i].text + "  =>  " + @domain + @week_rank_href[i].text
+        document = Oga.parse_html(@web_data)
+        week_rank_href = document.xpath("//div[@id = 'week_rank']//a[@class = 'content']/@href")
+        week_rank_title = document.xpath("//div[@id = 'week_rank']//a[@class = 'content']")
+        (0..week_rank_href.length-1).each do |i|
+            puts week_rank_title[i].text + "  =>  " + @domain + week_rank_href[i].text
         end
     end
 
