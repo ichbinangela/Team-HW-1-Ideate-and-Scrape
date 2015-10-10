@@ -29,27 +29,27 @@ class BNextRobot
     end
 
     def show_day_rank
-        @document = Oga.parse_html(@web_data)
-        @day_rank_href = @document.xpath("//div[@id = 'day_rank']//a[@class = 'content']/@href")
-        @day_rank_title = @document.xpath("//div[@id = 'day_rank']//a[@class = 'content']")
-        (0..@day_rank_href.length-1).each do |i|
-            puts @day_rank_title[i].text + "  =>  " + @domain + @day_rank_href[i].text
-        end
+        @day_rank_feeds.map { |feed| puts "#{feed.title}: #{feed.link}" }
+        nil
     end
 
     def show_week_rank
-        @document = Oga.parse_html(@web_data)
-        @week_rank_href = @document.xpath("//div[@id = 'week_rank']//a[@class = 'content']/@href")
-        @week_rank_title = @document.xpath("//div[@id = 'week_rank']//a[@class = 'content']")
-        (0..@week_rank_href.length-1).each do |i|
-            puts @week_rank_title[i].text + "  =>  " + @domain + @week_rank_href[i].text
-        end
+        @week_rank_feeds.map { |feed| puts "#{feed.title}: #{feed.link}" }
+        nil
     end
 
-
     def init_rank_feeds
-        @day_rank_feeds = []
-        @week_rank_feeds = []
+        token_gen = ["//div[@id = '", "_rank']//a[@class = 'content']"]
+        document = Oga.parse_html( @web_data )
+
+        day_rank_hrefs = document.xpath( token_gen.join( "day" ) + "/@href" ).map { |x| @domain + x.text }
+        week_rank_hrefs = document.xpath( token_gen.join( "week" ) + "/@href" ).map { |x| @domain + x.text[1..-1] }
+
+        day_rank_titles = document.xpath( token_gen.join( "day" ) ).map { |x| x.text }
+        week_rank_titles = document.xpath( token_gen.join( "week" ) ).map { |x| x.text[1..-1] }
+
+        @day_rank_feeds = day_rank_titles.zip( day_rank_hrefs ).map { |title, href| Feed.new( title, "", "", [], href ) }
+        @week_rank_feeds = week_rank_titles.zip( week_rank_hrefs ).map { |title, href| Feed.new( title, "", "", [], href ) }
         nil
     end
 
