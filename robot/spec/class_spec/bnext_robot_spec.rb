@@ -20,7 +20,6 @@ day_rank = [
     "Evernote的啟示：少了這個前提，商業計畫再完美也沒用！: http://www.bnext.com.tw/ext_rss/view/id/985113",
     "賈伯斯去世4年了！為了紀念他，庫克寫了封email給員工: http://www.bnext.com.tw/ext_rss/view/id/988425",
     "你真的知道Retina是什麼嗎？那些蘋果創造出來的技術名詞，你知道多少？: http://www.bnext.com.tw/ext_rss/view/id/985760",
-    "全新個人化官方帳號，LINE變身行動銀行！: http://goo.gl/kI3je0"
 ]
 
 describe "Get correct day rank articles" do
@@ -37,8 +36,7 @@ describe "Get correct day rank articles" do
     end
 
     it 'has the right content' do
-        content = []
-        @bnext_robot.day_rank_feeds.map { |feed| content << "#{feed.title}: #{feed.link}" }
+        content = @bnext_robot.day_rank_feeds.map { |feed| "#{feed.title}: #{feed.link}" }
         content.must_equal day_rank
     end
 end
@@ -57,8 +55,7 @@ describe "Get correct week rank articles" do
     end
 
     it 'has the right content' do
-        content = []
-        @bnext_robot.week_rank_feeds.map { |feed| content << "#{feed.title}: #{feed.link}" }
+        content = @bnext_robot.week_rank_feeds.map { |feed| "#{feed.title}: #{feed.link}" }
         content.must_equal week_rank
     end
 end
