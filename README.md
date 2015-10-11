@@ -3,8 +3,15 @@ This is a scraper that collects articles and article-related information from th
 
 ## Usage
 robot/lib/ext_class/**bnext_robot.rb**
-- call method: *show_day_rank*. It will return *titles* and the *links* of daily hot news.
-- call method: *show_week_rank*. It will return *titles* and the *links* of weekly hot news.
+```
+bot = BNextRobot.new; bot.show_day_rank
+
+bot.show_day_rank
+# It will return *titles* and the *links* of daily hot news.
+
+bot.show_week_rank
+# It will return *titles* and the *links* of weekly hot news.
+```
 
 ## Test file
 robot/spec/class_spec/**bnext_robot_spec.rb**
