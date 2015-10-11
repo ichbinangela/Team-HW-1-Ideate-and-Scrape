@@ -42,8 +42,10 @@ class BNextRobot
         token_gen = ["//div[@id = '", "_rank']//a[@class = 'content']"]
         document = Oga.parse_html( @web_data )
 
-        day_rank_hrefs = document.xpath( token_gen.join( "day" ) + "/@href" ).map { |x| @domain + x.text[1..-1] }
-        week_rank_hrefs = document.xpath( token_gen.join( "week" ) + "/@href" ).map { |x| @domain + x.text[1..-1] }
+        day_rank_hrefs = document.xpath( token_gen.join( "day" ) + "/@href" ).map { |x| x.text }
+        day_rank_hrefs = day_rank_hrefs.map { |x| if x.start_with? "/" then @domain + x[1..-1] else x end }
+        week_rank_hrefs = document.xpath( token_gen.join( "week" ) + "/@href" ).map { |x| x.text }
+        week_rank_hrefs = week_rank_hrefs.map { |x| if x.start_with? "/" then @domain + x[1..-1] else x end }
 
         day_rank_titles = document.xpath( token_gen.join( "day" ) ).map { |x| x.text }
         week_rank_titles = document.xpath( token_gen.join( "week" ) ).map { |x| x.text }
